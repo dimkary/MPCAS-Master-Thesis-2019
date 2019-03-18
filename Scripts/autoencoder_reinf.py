@@ -96,7 +96,7 @@ for k in range(times_zero_import):
     df_norm = [pd.concat([df_norm[i][:200],df_norm[i]], ignore_index=True) for i in range(len(df_norm))]
 
 #Add noise to the data:
-noise = [np.random.normal(0,0.3,df.shape) for df in df_norm]
+noise = [np.random.normal(0,0.5,df.shape) for df in df_norm]
 df_norm = [df_norm[i]+noise[i] for i in range(len(df_norm))]
 
 
@@ -157,7 +157,7 @@ for i in range(len(x_train)):
     encoding_dim = 100
     input_layer = Input(shape=(input_dim, ))
     encoder = Dense(encoding_dim, activation="elu",
-                    activity_regularizer=regularizers.l1(10e-3))(input_layer)
+                    activity_regularizer=regularizers.l2(10e-5))(input_layer)
     encoder = Dense(int(encoding_dim / 2), activation="elu")(encoder)
     encoder = Dense(int(encoding_dim / 2), activation="elu")(encoder)
     encoder = Dense(int(2), activation="elu")(encoder)
