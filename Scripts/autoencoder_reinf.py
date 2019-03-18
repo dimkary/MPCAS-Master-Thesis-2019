@@ -87,7 +87,7 @@ df_med=[(d-d.median())/(abs(d- d.median())).median() for d in df]
 #----------choose preprocessing----------------#
 df_norm = df_stand
 
-times_zero_import = 4
+times_zero_import = 5
 df = [pd.DataFrame(i) for i in data]
 for i in range(199):
     df_norm = [pd.concat([df_norm[i][:1],df_norm[i]], ignore_index=True) for i in range(len(df))]
@@ -114,7 +114,7 @@ for i in range(len(df_norm)):
     plt.show()
 
 
-failure_timestep = 1800;
+failure_timestep = 2000;
 labels = [0 if i<failure_timestep else 1 for i in range(df_norm[0].shape[0])]
 [i.insert(0,'Anomaly',labels) for i in df_norm];
 
@@ -154,7 +154,7 @@ autoencoder, histories, errors, all_errors, all_anomalies = [],[],[],[],[]
 t_ini = datetime.datetime.now()
 for i in range(len(x_train)): 
     input_dim = x_train[i].shape[1]
-    encoding_dim = 200
+    encoding_dim = 100
     input_layer = Input(shape=(input_dim, ))
     encoder = Dense(encoding_dim, activation="elu",
                     activity_regularizer=regularizers.l1(10e-3))(input_layer)
